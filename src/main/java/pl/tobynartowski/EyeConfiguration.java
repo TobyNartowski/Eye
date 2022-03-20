@@ -1,7 +1,8 @@
 package pl.tobynartowski;
 
 import lombok.*;
-import pl.tobynartowski.utils.Color;
+import pl.tobynartowski.utils.color.Color;
+import pl.tobynartowski.utils.color.ColorPalette;
 
 import java.util.Objects;
 
@@ -14,7 +15,7 @@ public class EyeConfiguration {
     private int windowSize;
     private float frameRate;
     private float eyeSize;
-    private Color backgroundColor;
+    private ColorPalette colorPalette;
 
     @Setter(AccessLevel.PACKAGE)
     private static EyeConfiguration instance;

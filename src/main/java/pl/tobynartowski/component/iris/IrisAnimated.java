@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import pl.tobynartowski.EyeConfiguration;
-import pl.tobynartowski.utils.Color;
+import pl.tobynartowski.utils.color.Color;
 import processing.core.PApplet;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

@@ -4,7 +4,8 @@ import pl.tobynartowski.component.eyelid.EyelidAnimated;
 import pl.tobynartowski.component.iris.IrisAnimated;
 import pl.tobynartowski.component.iris.IrisReflectionType;
 import pl.tobynartowski.component.sclera.Sclera;
-import pl.tobynartowski.utils.Color;
+import pl.tobynartowski.utils.color.Color;
+import pl.tobynartowski.utils.color.ColorPaletteFactory;
 import processing.core.PApplet;
 
 public class EyeApplication extends PApplet {
@@ -14,7 +15,9 @@ public class EyeApplication extends PApplet {
                     .windowSize(712)
                     .frameRate(60)
                     .eyeSize(200)
-                    .backgroundColor(Color.of(177, 100, 14))
+                    .colorPalette(
+                            ColorPaletteFactory.createColorPalette(
+                                    ColorPaletteFactory.DEFAULT_SATURATION))
                     .build();
 
     private Sclera sclera;
@@ -35,15 +38,15 @@ public class EyeApplication extends PApplet {
 
         sclera =
                 Sclera.builder()
-                        .color(Color.of(163, 10, 98))
+                        .color(configuration.getColorPalette().getLightColor())
                         .width(configuration.getEyeSize() * 2f)
                         .height(configuration.getEyeSize() * 1.75f)
                         .build();
         iris =
                 IrisAnimated.builder()
-                        .irisColor(Color.of(36, 93, 68))
+                        .irisColor(configuration.getColorPalette().getFirstAccentColor())
                         .irisSize(configuration.getEyeSize())
-                        .pupilColor(Color.of(178, 100, 6))
+                        .pupilColor(configuration.getColorPalette().getDarkColor())
                         .pupilSize(configuration.getEyeSize() * 0.75f)
                         .reflectionType(IrisReflectionType.JELLY)
                         .reflectionSize(configuration.getEyeSize() * 0.025f)
@@ -51,21 +54,21 @@ public class EyeApplication extends PApplet {
                         .build();
         eyelid =
                 EyelidAnimated.builder()
-                        .eyelashColor(Color.of(360, 68, 63))
-                        .eyelashQuantity(18)
+                        .eyelashColor(configuration.getColorPalette().getSecondAccentColor())
+                        .eyelashQuantity((int) random(5) + 13)
                         .eyelashWeight(6f)
                         .eyelidHeight(25f)
-                        .lowerEyelidColor(Color.of(360, 68, 63))
-                        .upperEyelidColor(Color.of(360, 68, 63))
+                        .lowerEyelidColor(configuration.getColorPalette().getSecondAccentColor())
+                        .upperEyelidColor(configuration.getColorPalette().getSecondAccentColor())
                         .build();
     }
 
     @Override
     public void draw() {
         background(
-                configuration.getBackgroundColor().getHue(),
-                configuration.getBackgroundColor().getSaturation(),
-                configuration.getBackgroundColor().getBrightness());
+                configuration.getColorPalette().getBackgroundColor().getHue(),
+                configuration.getColorPalette().getBackgroundColor().getSaturation(),
+                configuration.getColorPalette().getBackgroundColor().getBrightness());
 
         pushMatrix();
         translate(configuration.getWindowSize() / 2f, configuration.getWindowSize() / 2f);

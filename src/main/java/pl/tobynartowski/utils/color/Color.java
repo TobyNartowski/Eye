@@ -1,4 +1,4 @@
-package pl.tobynartowski.utils;
+package pl.tobynartowski.utils.color;
 
 import lombok.Value;
 

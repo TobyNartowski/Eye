@@ -2,7 +2,7 @@ package pl.tobynartowski.component.eyelid;
 
 import pl.tobynartowski.EyeConfiguration;
 import pl.tobynartowski.component.Renderable;
-import pl.tobynartowski.utils.Color;
+import pl.tobynartowski.utils.color.Color;
 import processing.core.PApplet;
 
 public class Eyelid implements Renderable {
@@ -168,9 +168,9 @@ public class Eyelid implements Renderable {
         @Override
         public void render(PApplet context) {
             context.fill(
-                    configuration.getBackgroundColor().getHue(),
-                    configuration.getBackgroundColor().getSaturation(),
-                    configuration.getBackgroundColor().getBrightness());
+                    configuration.getColorPalette().getBackgroundColor().getHue(),
+                    configuration.getColorPalette().getBackgroundColor().getSaturation(),
+                    configuration.getColorPalette().getBackgroundColor().getBrightness());
             context.beginShape();
             context.vertex(-configuration.getEyeSize(), 0);
             context.bezierVertex(
@@ -192,9 +192,9 @@ public class Eyelid implements Renderable {
         @Override
         public void render(PApplet context) {
             context.fill(
-                    configuration.getBackgroundColor().getHue(),
-                    configuration.getBackgroundColor().getSaturation(),
-                    configuration.getBackgroundColor().getBrightness());
+                    configuration.getColorPalette().getBackgroundColor().getHue(),
+                    configuration.getColorPalette().getBackgroundColor().getSaturation(),
+                    configuration.getColorPalette().getBackgroundColor().getBrightness());
             context.beginShape();
             context.vertex(-configuration.getEyeSize(), 0);
             context.bezierVertex(

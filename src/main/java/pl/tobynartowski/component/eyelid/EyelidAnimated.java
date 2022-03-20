@@ -1,7 +1,7 @@
 package pl.tobynartowski.component.eyelid;
 
 import lombok.Builder;
-import pl.tobynartowski.utils.Color;
+import pl.tobynartowski.utils.color.Color;
 import processing.core.PApplet;
 
 public class EyelidAnimated extends Eyelid {

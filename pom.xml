@@ -8,6 +8,11 @@
     <artifactId>Eye</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <java.compiler.source>11</java.compiler.source>
+        <java.compiler.target>11</java.compiler.target>
+    </properties>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.processing/core -->
         <dependency>
@@ -21,6 +26,18 @@
             <artifactId>lombok</artifactId>
             <version>1.18.22</version>
             <scope>provided</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.9.3</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.13.2</version>
         </dependency>
     </dependencies>
 </project>
