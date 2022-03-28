@@ -2,23 +2,17 @@ package pl.tobynartowski;
 
 import pl.tobynartowski.component.eyelid.EyelidAnimated;
 import pl.tobynartowski.component.iris.IrisAnimated;
-import pl.tobynartowski.component.iris.IrisReflectionType;
 import pl.tobynartowski.component.sclera.Sclera;
-import pl.tobynartowski.utils.color.Color;
-import pl.tobynartowski.utils.color.ColorPaletteFactory;
+import pl.tobynartowski.configuration.mapper.FragilityMapper;
+import pl.tobynartowski.configuration.property.ConfigurationProperties;
+import pl.tobynartowski.util.color.Color;
+import pl.tobynartowski.util.color.ColorPaletteFactory;
 import processing.core.PApplet;
 
 public class EyeApplication extends PApplet {
 
-    private final EyeConfiguration configuration =
-            EyeConfiguration.builder()
-                    .windowSize(712)
-                    .frameRate(60)
-                    .eyeSize(200)
-                    .colorPalette(
-                            ColorPaletteFactory.createColorPalette(
-                                    ColorPaletteFactory.DEFAULT_SATURATION))
-                    .build();
+    private final ConfigurationProperties properties = new ConfigurationProperties();
+    private EyeContext configuration;
 
     private Sclera sclera;
     private IrisAnimated iris;
@@ -26,7 +20,17 @@ public class EyeApplication extends PApplet {
 
     @Override
     public void settings() {
-        EyeConfiguration.setInstance(configuration);
+        configuration =
+                EyeContext.builder()
+                        .windowSize(712)
+                        .frameRate(60)
+                        .eyeSize(FragilityMapper.getEyeSize(properties))
+                        .colorPalette(
+                                ColorPaletteFactory.createColorPalette(
+                                        ColorPaletteFactory.DEFAULT_SATURATION))
+                        .build();
+
+        EyeContext.setInstance(configuration);
         size(configuration.getWindowSize(), configuration.getWindowSize());
     }
 
@@ -47,17 +51,20 @@ public class EyeApplication extends PApplet {
                         .irisColor(configuration.getColorPalette().getFirstAccentColor())
                         .irisSize(configuration.getEyeSize())
                         .pupilColor(configuration.getColorPalette().getDarkColor())
-                        .pupilSize(configuration.getEyeSize() * 0.75f)
-                        .reflectionType(IrisReflectionType.JELLY)
+                        .pupilSize(
+                                configuration.getEyeSize()
+                                        * FragilityMapper.getPupilSize(properties))
+                        .reflectionType(FragilityMapper.getReflectionType(properties))
                         .reflectionSize(configuration.getEyeSize() * 0.025f)
                         .reflectionColor(Color.of(180, 0, 100))
                         .build();
         eyelid =
                 EyelidAnimated.builder()
                         .eyelashColor(configuration.getColorPalette().getSecondAccentColor())
-                        .eyelashQuantity((int) random(5) + 13)
-                        .eyelashWeight(6f)
-                        .eyelidHeight(25f)
+                        .eyelashQuantity(
+                                (int) (random(4) + FragilityMapper.getEyelashQuantity(properties)))
+                        .eyelashWeight(FragilityMapper.getEyelashWeight(properties))
+                        .eyelidHeight(FragilityMapper.getEyelidHeight(properties))
                         .lowerEyelidColor(configuration.getColorPalette().getSecondAccentColor())
                         .upperEyelidColor(configuration.getColorPalette().getSecondAccentColor())
                         .build();
@@ -80,6 +87,14 @@ public class EyeApplication extends PApplet {
         popMatrix();
 
         logFrameRate();
+
+//        // TODO: DEBUG REMOVE
+//        if (frameCount % 100 == 0) {
+//            configuration.setColorPalette(
+//                    ColorPaletteFactory.createColorPalette(ColorPaletteFactory.DEFAULT_SATURATION));
+//            setup();
+//        }
+//        // END DEBUG
     }
 
     private void logFrameRate() {

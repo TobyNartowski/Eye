@@ -1,8 +1,7 @@
 package pl.tobynartowski;
 
 import lombok.*;
-import pl.tobynartowski.utils.color.Color;
-import pl.tobynartowski.utils.color.ColorPalette;
+import pl.tobynartowski.util.color.ColorPalette;
 
 import java.util.Objects;
 
@@ -10,17 +9,18 @@ import java.util.Objects;
 @Builder(access = AccessLevel.PACKAGE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class EyeConfiguration {
+public class EyeContext {
 
     private int windowSize;
     private float frameRate;
     private float eyeSize;
+//    @Setter // TODO: REMOVE @Setter, DEBUGGING
     private ColorPalette colorPalette;
 
     @Setter(AccessLevel.PACKAGE)
-    private static EyeConfiguration instance;
+    private static EyeContext instance;
 
-    public static EyeConfiguration getInstance() {
+    public static EyeContext getInstance() {
         if (Objects.isNull(instance)) {
             throw new IllegalStateException("Application is not configured.");
         }

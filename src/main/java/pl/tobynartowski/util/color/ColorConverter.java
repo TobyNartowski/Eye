@@ -1,10 +1,10 @@
-package pl.tobynartowski.utils.color;
+package pl.tobynartowski.util.color;
 
 import java.awt.Color;
 
 class ColorConverter {
 
-    static pl.tobynartowski.utils.color.Color convertToHsbColor(
+    static pl.tobynartowski.util.color.Color convertToHsbColor(
             int red, int green, int blue) {
         float[] hsb = Color.RGBtoHSB(red, green, blue, null);
 
@@ -12,6 +12,6 @@ class ColorConverter {
         float saturation = hsb[1] * 100;
         float brightness = hsb[2] * 100;
 
-        return pl.tobynartowski.utils.color.Color.of(hue, saturation, brightness);
+        return pl.tobynartowski.util.color.Color.of(hue, saturation, brightness);
     }
 }

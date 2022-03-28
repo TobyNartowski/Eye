@@ -3,14 +3,14 @@ package pl.tobynartowski.component.iris;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import pl.tobynartowski.EyeConfiguration;
-import pl.tobynartowski.utils.color.Color;
+import pl.tobynartowski.EyeContext;
+import pl.tobynartowski.util.color.Color;
 import processing.core.PApplet;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class IrisAnimated extends Iris {
 
-    private final EyeConfiguration eyeConfiguration = EyeConfiguration.getInstance();
+    private final EyeContext eyeContext = EyeContext.getInstance();
 
     private float xTarget = 0f;
     private float yTarget = 0f;
@@ -45,11 +45,11 @@ public class IrisAnimated extends Iris {
     private void animate(PApplet context) {
         if (context.frameCount % ((int) context.random(80) + 70) == 0) {
             xTarget =
-                    context.random(eyeConfiguration.getEyeSize() / 2f)
-                            - (eyeConfiguration.getEyeSize() / 4f);
+                    context.random(eyeContext.getEyeSize() / 2f)
+                            - (eyeContext.getEyeSize() / 4f);
             yTarget =
-                    context.random(eyeConfiguration.getEyeSize() / 4f)
-                            - (eyeConfiguration.getEyeSize() / 8f);
+                    context.random(eyeContext.getEyeSize() / 4f)
+                            - (eyeContext.getEyeSize() / 8f);
         }
 
         xLerp = PApplet.lerp(xLerp, xTarget, 0.1f + context.random(0.12f));

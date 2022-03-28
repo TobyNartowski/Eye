@@ -1,13 +1,13 @@
 package pl.tobynartowski.component.eyelid;
 
-import pl.tobynartowski.EyeConfiguration;
+import pl.tobynartowski.EyeContext;
 import pl.tobynartowski.component.Renderable;
-import pl.tobynartowski.utils.color.Color;
+import pl.tobynartowski.util.color.Color;
 import processing.core.PApplet;
 
 public class Eyelid implements Renderable {
 
-    protected final EyeConfiguration configuration = EyeConfiguration.getInstance();
+    protected final EyeContext configuration = EyeContext.getInstance();
 
     private final float eyelidMaskOffset = 5;
 

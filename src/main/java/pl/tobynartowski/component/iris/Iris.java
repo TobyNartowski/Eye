@@ -3,7 +3,7 @@ package pl.tobynartowski.component.iris;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import pl.tobynartowski.component.Renderable;
-import pl.tobynartowski.utils.color.Color;
+import pl.tobynartowski.util.color.Color;
 import processing.core.PApplet;
 
 @NoArgsConstructor(access = AccessLevel.PACKAGE)

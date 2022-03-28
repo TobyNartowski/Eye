@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import pl.tobynartowski.component.Renderable;
-import pl.tobynartowski.utils.color.Color;
+import pl.tobynartowski.util.color.Color;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
