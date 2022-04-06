@@ -16,6 +16,7 @@ public class ColorPaletteFactory {
 
     private static final OkHttpClient client = new OkHttpClient().newBuilder().build();
 
+    // TODO: Try to generate broaden color palette locally maybe?
     public static ColorPalette createColorPalette(float saturation) {
         try {
             MediaType mediaType = MediaType.parse("application/json");

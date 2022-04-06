@@ -12,11 +12,19 @@ public class IrisAnimated extends Iris {
 
     private final EyeContext eyeContext = EyeContext.getInstance();
 
+    // TODO: Move to builder
+    private float gazeFrequency = 125; // [50-200] - [low-high]
+    private float gazeSmallMoveStrength = 0.25f; // [0-0.5] - [none-big]
+    private int gazeSmallMoveFrequency = 2; // [1-6] - [none-high]
+    private float gazeSpeed = 0.25f; // [0.03-0.25] - [slow-fast]
+
     private float xTarget = 0f;
     private float yTarget = 0f;
     private float xLerp = 0f;
     private float yLerp = 0f;
     private float wiggle = 0f;
+
+    private int gazeBuffer = 1;
 
     @Builder
     public IrisAnimated(
@@ -43,17 +51,20 @@ public class IrisAnimated extends Iris {
     }
 
     private void animate(PApplet context) {
-        if (context.frameCount % ((int) context.random(80) + 70) == 0) {
-            xTarget =
-                    context.random(eyeContext.getEyeSize() / 2f)
-                            - (eyeContext.getEyeSize() / 4f);
-            yTarget =
-                    context.random(eyeContext.getEyeSize() / 4f)
-                            - (eyeContext.getEyeSize() / 8f);
+        if (gazeBuffer == context.frameCount) {
+            gazeBuffer = (int) (context.random(gazeFrequency) + 10) + context.frameCount;
+
+            xTarget = context.random(eyeContext.getEyeSize() / 2f) - (eyeContext.getEyeSize() / 4f);
+            yTarget = context.random(eyeContext.getEyeSize() / 4f) - (eyeContext.getEyeSize() / 8f);
+
+            if ((int) context.random(gazeFrequency) % gazeSmallMoveFrequency != 0) {
+                xTarget = (irisX - xTarget) * gazeSmallMoveStrength;
+                yTarget = (irisY - yTarget) * gazeSmallMoveStrength;
+            }
         }
 
-        xLerp = PApplet.lerp(xLerp, xTarget, 0.1f + context.random(0.12f));
-        yLerp = PApplet.lerp(yLerp, yTarget, 0.1f + context.random(0.12f));
+        xLerp = PApplet.lerp(xLerp, xTarget, gazeSpeed + context.random(gazeSpeed / 2));
+        yLerp = PApplet.lerp(yLerp, yTarget, gazeSpeed + context.random(gazeSpeed / 2));
 
         irisX = xLerp + 10 * context.noise(wiggle);
         irisY = yLerp + 10 * context.noise(wiggle);

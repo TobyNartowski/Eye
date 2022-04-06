@@ -13,6 +13,7 @@ public class EyeContext {
 
     private int windowSize;
     private float frameRate;
+    private float videoDuration;
     private float eyeSize;
 //    @Setter // TODO: REMOVE @Setter, DEBUGGING
     private ColorPalette colorPalette;

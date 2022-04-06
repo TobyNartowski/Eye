@@ -8,6 +8,7 @@ import static processing.core.PApplet.map;
 
 public class FragilityMapper {
 
+    // TODO: Add functionality to add multiple mappers to same value
     public static float getEyeSize(ConfigurationProperties properties) {
         return map(
                 properties.getNumericProperty(ConfigurationProperty.FRAGILITY), 0, 100, 175f, 225f);
@@ -30,6 +31,11 @@ public class FragilityMapper {
     public static float getEyelashWeight(ConfigurationProperties properties) {
         return map(
                 properties.getNumericProperty(ConfigurationProperty.FRAGILITY), 0, 100, 8f, 4.5f);
+    }
+
+    public static float getColor(ConfigurationProperties properties) {
+        return map(
+                properties.getNumericProperty(ConfigurationProperty.FRAGILITY), 0, 100, 1.3f, 0.8f);
     }
 
     public static IrisReflectionType getReflectionType(ConfigurationProperties properties) {

@@ -7,12 +7,14 @@ import pl.tobynartowski.configuration.mapper.FragilityMapper;
 import pl.tobynartowski.configuration.property.ConfigurationProperties;
 import pl.tobynartowski.util.color.Color;
 import pl.tobynartowski.util.color.ColorPaletteFactory;
+import pl.tobynartowski.util.recorder.Recorder;
 import processing.core.PApplet;
 
 public class EyeApplication extends PApplet {
 
     private final ConfigurationProperties properties = new ConfigurationProperties();
     private EyeContext configuration;
+    private Recorder recorder;
 
     private Sclera sclera;
     private IrisAnimated iris;
@@ -24,10 +26,11 @@ public class EyeApplication extends PApplet {
                 EyeContext.builder()
                         .windowSize(712)
                         .frameRate(60)
+                        .videoDuration(10)
                         .eyeSize(FragilityMapper.getEyeSize(properties))
                         .colorPalette(
                                 ColorPaletteFactory.createColorPalette(
-                                        ColorPaletteFactory.DEFAULT_SATURATION))
+                                        FragilityMapper.getColor(properties)))
                         .build();
 
         EyeContext.setInstance(configuration);
@@ -68,6 +71,13 @@ public class EyeApplication extends PApplet {
                         .lowerEyelidColor(configuration.getColorPalette().getSecondAccentColor())
                         .upperEyelidColor(configuration.getColorPalette().getSecondAccentColor())
                         .build();
+
+        // TODO: DEBUG, REMOVE
+        //        recorder =
+        //                new Recorder(
+        //                        this,
+        //                        (int) configuration.getVideoDuration(),
+        //                        (int) configuration.getFrameRate());
     }
 
     @Override
@@ -87,14 +97,7 @@ public class EyeApplication extends PApplet {
         popMatrix();
 
         logFrameRate();
-
-//        // TODO: DEBUG REMOVE
-//        if (frameCount % 100 == 0) {
-//            configuration.setColorPalette(
-//                    ColorPaletteFactory.createColorPalette(ColorPaletteFactory.DEFAULT_SATURATION));
-//            setup();
-//        }
-//        // END DEBUG
+        //        recorder.record(this); // TODO: DEBUG UNCOMMENT
     }
 
     private void logFrameRate() {
