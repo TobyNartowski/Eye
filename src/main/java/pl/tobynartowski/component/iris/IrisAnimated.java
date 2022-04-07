@@ -16,7 +16,8 @@ public class IrisAnimated extends Iris {
     private float gazeFrequency = 125; // [50-200] - [low-high]
     private float gazeSmallMoveStrength = 0.25f; // [0-0.5] - [none-big]
     private int gazeSmallMoveFrequency = 2; // [1-6] - [none-high]
-    private float gazeSpeed = 0.25f; // [0.03-0.25] - [slow-fast]
+    private float gazeSpeed = 0.11f; // [0.03-0.25] - [slow-fast]
+    private int gazePride = 3; // [1-7] - [depressed-proud] // TODO: For every 1-7 moves gaze downward or upward
 
     private float xTarget = 0f;
     private float yTarget = 0f;

@@ -5,25 +5,25 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class ColorPaletteFactory {
 
-    public static final float DEFAULT_SATURATION = 1f;
+    private static final List<String> requestBodies =
+            List.of(
+                    "{\"input\":[\"N\",\"N\",[238,238,238],\"N\",\"N\"],\"model\":\"default\"}",
+                    "{\"input\":[[255,180,180],\"N\",\"N\",\"N\",\"N\"],\"model\":\"default\"}",
+                    "{\"input\":[\"N\",\"N\",\"N\",\"N\",[246,246,246]],\"model\":\"default\"}",
+                    "{\"input\":[\"N\",\"N\",[255,230,230],\"N\",\"N\"],\"model\":\"ui\"}",
+                    "{\"input\":[\"N\",\"N\",\"N\",[238,238,238],\"N\"],\"model\":\"flame_photography\"}",
+                    "{\"input\":[\"N\",\"N\",\"N\",\"N\",\"N\"],\"model\":\"default\"}");
 
     private static final OkHttpClient client = new OkHttpClient().newBuilder().build();
 
-    // TODO: Try to generate broaden color palette locally maybe?
     public static ColorPalette createColorPalette(float saturation) {
         try {
             MediaType mediaType = MediaType.parse("application/json");
-            RequestBody body =
-                    RequestBody.create(
-                            "{\"input\":[\"N\",\"N\",[238,238,238],\"N\",\"N\"],\"model\":\"default\"}",
-                            mediaType);
+            RequestBody body = RequestBody.create(createColorPaletteRequestBody(), mediaType);
             Request request =
                     new Request.Builder()
                             .url("http://colormind.io/api/")
@@ -52,6 +52,10 @@ public class ColorPaletteFactory {
         }
     }
 
+    private static String createColorPaletteRequestBody() {
+        return requestBodies.get(new Random().nextInt(requestBodies.size()));
+    }
+
     private static ColorPalette extractColorPaletteFromColors(List<Color> extractedColors) {
         ColorPalette colorPalette = new ColorPalette();
 
@@ -78,9 +82,12 @@ public class ColorPaletteFactory {
         ColorPalette gradedColorPalette = new ColorPalette();
         gradedColorPalette.setLightColor(gradeColor(colorPalette.getLightColor(), saturation));
         gradedColorPalette.setDarkColor(gradeColor(colorPalette.getDarkColor(), saturation));
-        gradedColorPalette.setBackgroundColor(gradeColor(colorPalette.getBackgroundColor(), saturation));
-        gradedColorPalette.setFirstAccentColor(gradeColor(colorPalette.getFirstAccentColor(), saturation));
-        gradedColorPalette.setSecondAccentColor(gradeColor(colorPalette.getSecondAccentColor(), saturation));
+        gradedColorPalette.setBackgroundColor(
+                gradeColor(colorPalette.getBackgroundColor(), saturation));
+        gradedColorPalette.setFirstAccentColor(
+                gradeColor(colorPalette.getFirstAccentColor(), saturation));
+        gradedColorPalette.setSecondAccentColor(
+                gradeColor(colorPalette.getSecondAccentColor(), saturation));
 
         return gradedColorPalette;
     }

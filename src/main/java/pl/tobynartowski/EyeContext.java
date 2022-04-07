@@ -15,7 +15,6 @@ public class EyeContext {
     private float frameRate;
     private float videoDuration;
     private float eyeSize;
-//    @Setter // TODO: REMOVE @Setter, DEBUGGING
     private ColorPalette colorPalette;
 
     @Setter(AccessLevel.PACKAGE)
