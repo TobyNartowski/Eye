@@ -12,12 +12,13 @@ public class IrisAnimated extends Iris {
 
     private final EyeContext eyeContext = EyeContext.getInstance();
 
-    // TODO: Move to builder
-    private float gazeFrequency = 125; // [50-200] - [low-high]
-    private float gazeSmallMoveStrength = 0.25f; // [0-0.5] - [none-big]
-    private int gazeSmallMoveFrequency = 2; // [1-6] - [none-high]
-    private float gazeSpeed = 0.11f; // [0.03-0.25] - [slow-fast]
-    private int gazePride = 3; // [1-7] - [depressed-proud] // TODO: For every 1-7 moves gaze downward or upward
+    private float gazeFrequency;
+    private float gazeSmallMoveStrength;
+    private int gazeSmallMoveFrequency;
+    private float gazeSpeed;
+    private int gazePrideFrequency;
+    private boolean gazePride;
+    private float gazeNervousness;
 
     private float xTarget = 0f;
     private float yTarget = 0f;
@@ -35,7 +36,14 @@ public class IrisAnimated extends Iris {
             float pupilSize,
             IrisReflectionType reflectionType,
             Color reflectionColor,
-            float reflectionSize) {
+            float reflectionSize,
+            float gazeFrequency,
+            float gazeSmallMoveStrength,
+            int gazeSmallMoveFrequency,
+            float gazeSpeed,
+            int gazePrideFrequency,
+            boolean gazePride,
+            float gazeNervousness) {
         this.irisColor = irisColor;
         this.irisSize = irisSize;
         this.pupilColor = pupilColor;
@@ -43,6 +51,13 @@ public class IrisAnimated extends Iris {
         this.reflectionType = reflectionType;
         this.reflectionColor = reflectionColor;
         this.reflectionSize = reflectionSize;
+        this.gazeFrequency = gazeFrequency;
+        this.gazeSmallMoveStrength = gazeSmallMoveStrength;
+        this.gazeSmallMoveFrequency = gazeSmallMoveFrequency;
+        this.gazeSpeed = gazeSpeed;
+        this.gazePrideFrequency = gazePrideFrequency;
+        this.gazePride = gazePride;
+        this.gazeNervousness = gazeNervousness;
     }
 
     @Override
@@ -62,6 +77,12 @@ public class IrisAnimated extends Iris {
                 xTarget = (irisX - xTarget) * gazeSmallMoveStrength;
                 yTarget = (irisY - yTarget) * gazeSmallMoveStrength;
             }
+
+            if (context.frameCount % gazePrideFrequency != 0) {
+                if ((yTarget > 0 && gazePride) || (yTarget < 0 && !gazePride)) {
+                    yTarget = -yTarget;
+                }
+            }
         }
 
         xLerp = PApplet.lerp(xLerp, xTarget, gazeSpeed + context.random(gazeSpeed / 2));
@@ -73,6 +94,10 @@ public class IrisAnimated extends Iris {
         reflectionX = irisX + 25f + (0.4f * irisX);
         reflectionY = irisY - 25f + (0.25f * irisY);
 
-        wiggle += 0.005f;
+        wiggle += nervousnessFunction(gazeNervousness);
+    }
+
+    private float nervousnessFunction(float x) {
+        return (float) (0.003142857 * Math.pow(x, 2) - 0.01225714 * x + 0.0114);
     }
 }

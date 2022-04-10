@@ -15,7 +15,6 @@ public class ColorPaletteFactory {
                     "{\"input\":[[255,180,180],\"N\",\"N\",\"N\",\"N\"],\"model\":\"default\"}",
                     "{\"input\":[\"N\",\"N\",\"N\",\"N\",[246,246,246]],\"model\":\"default\"}",
                     "{\"input\":[\"N\",\"N\",[255,230,230],\"N\",\"N\"],\"model\":\"ui\"}",
-                    "{\"input\":[\"N\",\"N\",\"N\",[238,238,238],\"N\"],\"model\":\"flame_photography\"}",
                     "{\"input\":[\"N\",\"N\",\"N\",\"N\",\"N\"],\"model\":\"default\"}");
 
     private static final OkHttpClient client = new OkHttpClient().newBuilder().build();

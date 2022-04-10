@@ -11,7 +11,7 @@ public class FragilityMapper {
     // TODO: Add functionality to add multiple mappers to same value
     public static float getEyeSize(ConfigurationProperties properties) {
         return map(
-                properties.getNumericProperty(ConfigurationProperty.FRAGILITY), 0, 100, 175f, 225f);
+                properties.getNumericProperty(ConfigurationProperty.FRAGILITY), 0, 100, 220f, 180f);
     }
 
     public static float getPupilSize(ConfigurationProperties properties) {
@@ -30,7 +30,7 @@ public class FragilityMapper {
 
     public static float getEyelashWeight(ConfigurationProperties properties) {
         return map(
-                properties.getNumericProperty(ConfigurationProperty.FRAGILITY), 0, 100, 8f, 4.5f);
+                properties.getNumericProperty(ConfigurationProperty.FRAGILITY), 0, 100, 10.5f, 3.5f);
     }
 
     public static float getColor(ConfigurationProperties properties) {

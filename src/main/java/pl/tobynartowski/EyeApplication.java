@@ -46,7 +46,7 @@ public class EyeApplication extends PApplet {
         sclera =
                 Sclera.builder()
                         .color(configuration.getColorPalette().getLightColor())
-                        .width(configuration.getEyeSize() * 2f)
+                        .width(configuration.getEyeSize() * 1.99f)
                         .height(configuration.getEyeSize() * 1.75f)
                         .build();
         iris =
@@ -60,6 +60,14 @@ public class EyeApplication extends PApplet {
                         .reflectionType(FragilityMapper.getReflectionType(properties))
                         .reflectionSize(configuration.getEyeSize() * 0.025f)
                         .reflectionColor(Color.of(180, 0, 100))
+                        // TODO: Configure
+                        .gazeFrequency(125f) // [50-200] - [low-high]
+                        .gazeSmallMoveStrength(0.25f) // [0-0.5] - [none-big]
+                        .gazeSmallMoveFrequency(4) //[1-6] - [none-high]
+                        .gazeSpeed(0.17f) // [0.08-0.25] - [slow-fast]
+                        .gazePrideFrequency(2) // [1-6] - [none-high]
+                        .gazePride(true) // [false-true] - [depressed-proud]
+                        .gazeNervousness(3f) // [2-5] - [calm-nervous]
                         .build();
         eyelid =
                 EyelidAnimated.builder()
@@ -70,6 +78,9 @@ public class EyeApplication extends PApplet {
                         .eyelidHeight(FragilityMapper.getEyelidHeight(properties))
                         .lowerEyelidColor(configuration.getColorPalette().getSecondAccentColor())
                         .upperEyelidColor(configuration.getColorPalette().getSecondAccentColor())
+                        // TODO: Configure
+                        .blinkingFrequency(4) // [1-10] - [low-high]
+                        .blinkingSpeed(0.08f) // [0.03-0,1] - [slow-fast]
                         .build();
 
         // TODO: DEBUG, REMOVE
