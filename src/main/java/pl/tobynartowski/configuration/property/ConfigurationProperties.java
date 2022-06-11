@@ -36,14 +36,14 @@ public class ConfigurationProperties {
         return properties;
     }
 
-    public int getNumericProperty(ConfigurationProperty property) {
+    public static int getNumericProperty(ConfigurationProperty property) {
         return Optional.ofNullable(properties.getProperty(property.name().toLowerCase()))
                 .map(Integer::parseInt)
-                .map(this::trimValueToRange)
+                .map(ConfigurationProperties::trimValueToRange)
                 .orElseThrow(() -> new ConfigurationPropertyNotFoundException(property));
     }
 
-    private int trimValueToRange(int original) {
+    private static int trimValueToRange(int original) {
         if (original > PROPERTY_MAX_VALUE) {
             return PROPERTY_MAX_VALUE;
         } else {

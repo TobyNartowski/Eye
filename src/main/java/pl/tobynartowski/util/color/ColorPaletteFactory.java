@@ -7,6 +7,7 @@ import okhttp3.*;
 import java.io.IOException;
 import java.util.*;
 
+// TODO: parse https://coolors.co/generate instead
 public class ColorPaletteFactory {
 
     private static final List<String> requestBodies =

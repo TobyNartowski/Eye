@@ -2,29 +2,39 @@ package pl.tobynartowski.component.iris;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldNameConstants;
 import pl.tobynartowski.component.Renderable;
+import pl.tobynartowski.mapper.Mappable;
+import pl.tobynartowski.mapper.MappedValue;
 import pl.tobynartowski.util.color.Color;
 import processing.core.PApplet;
 
+@Mappable
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-class Iris implements Renderable {
+@FieldNameConstants
+public class Iris implements Renderable {
 
+    // Rigged values
     Color irisColor;
     float irisSize;
-    float irisX = 0;
-    float irisY = 0;
-
     Color pupilColor;
+
+    @MappedValue(min = 0.5f, max = 1f)
     float pupilSize;
 
-    IrisReflectionType reflectionType;
+    @MappedValue
+    int reflectionType;
     Color reflectionColor;
     float reflectionSize;
-    float reflectionX = 0;
-    float reflectionY = 0;
+    // Rigged values end
 
     private final Pupil pupil = new Pupil();
     private final Reflection reflection = new Reflection();
+
+    float irisX = 0;
+    float irisY = 0;
+    float reflectionX = 0;
+    float reflectionY = 0;
 
     @Override
     public void render(PApplet context) {
@@ -55,7 +65,7 @@ class Iris implements Renderable {
                     reflectionColor.getSaturation(),
                     reflectionColor.getBrightness());
 
-            if (IrisReflectionType.STAR.equals(reflectionType)) {
+            if (reflectionType >= 70) {
                 drawStar(context, reflectionX, reflectionY, reflectionSize, reflectionSize * 2);
             } else {
                 drawJelly(

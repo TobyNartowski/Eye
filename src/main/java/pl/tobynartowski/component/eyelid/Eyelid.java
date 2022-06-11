@@ -1,27 +1,37 @@
 package pl.tobynartowski.component.eyelid;
 
+import lombok.experimental.FieldNameConstants;
 import pl.tobynartowski.EyeContext;
 import pl.tobynartowski.component.Renderable;
+import pl.tobynartowski.mapper.Mappable;
+import pl.tobynartowski.mapper.MappedValue;
 import pl.tobynartowski.util.color.Color;
 import processing.core.PApplet;
 
+@Mappable
+@FieldNameConstants
 public class Eyelid implements Renderable {
 
     protected final EyeContext configuration = EyeContext.getInstance();
-
     private final float eyelidMaskOffset = 5;
 
+    // Rigged values
+    @MappedValue(min = 15, max = 50)
     float eyelidHeight;
-
     Color eyelashColor;
+
+    @MappedValue(min = 8, max = 15)
     int eyelashQuantity;
+
+    @MappedValue(min = 5.5f, max = 10.5f)
     float eyelashWeight;
-    float eyelashDeformation;
 
     Color upperEyelidColor;
-    float upperEyelidDeformation;
-
     Color lowerEyelidColor;
+    // Rigged values end
+
+    float eyelashDeformation;
+    float upperEyelidDeformation;
     float lowerEyelidDeformation;
 
     private final Eyelash eyelash = new Eyelash();

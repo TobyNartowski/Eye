@@ -3,15 +3,18 @@ package pl.tobynartowski.component.iris;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldNameConstants;
 import pl.tobynartowski.EyeContext;
+import pl.tobynartowski.mapper.Mappable;
 import pl.tobynartowski.util.color.Color;
 import processing.core.PApplet;
 
+@Mappable
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@FieldNameConstants
 public class IrisAnimated extends Iris {
 
-    private final EyeContext eyeContext = EyeContext.getInstance();
-
+    // Rigged values
     private float gazeFrequency;
     private float gazeSmallMoveStrength;
     private int gazeSmallMoveFrequency;
@@ -19,6 +22,9 @@ public class IrisAnimated extends Iris {
     private int gazePrideFrequency;
     private boolean gazePride;
     private float gazeNervousness;
+    // Rigged values end
+
+    private final EyeContext eyeContext = EyeContext.getInstance();
 
     private float xTarget = 0f;
     private float yTarget = 0f;
@@ -34,7 +40,7 @@ public class IrisAnimated extends Iris {
             float irisSize,
             Color pupilColor,
             float pupilSize,
-            IrisReflectionType reflectionType,
+            int reflectionType,
             Color reflectionColor,
             float reflectionSize,
             float gazeFrequency,

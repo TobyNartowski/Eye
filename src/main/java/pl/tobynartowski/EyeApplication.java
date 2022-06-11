@@ -1,10 +1,11 @@
 package pl.tobynartowski;
 
+import pl.tobynartowski.component.eyelid.Eyelid;
 import pl.tobynartowski.component.eyelid.EyelidAnimated;
+import pl.tobynartowski.component.iris.Iris;
 import pl.tobynartowski.component.iris.IrisAnimated;
 import pl.tobynartowski.component.sclera.Sclera;
-import pl.tobynartowski.configuration.mapper.FragilityMapper;
-import pl.tobynartowski.configuration.property.ConfigurationProperties;
+import pl.tobynartowski.configuration.property.ConfigurationPropertyMapper;
 import pl.tobynartowski.util.color.Color;
 import pl.tobynartowski.util.color.ColorPaletteFactory;
 import pl.tobynartowski.util.recorder.Recorder;
@@ -12,7 +13,6 @@ import processing.core.PApplet;
 
 public class EyeApplication extends PApplet {
 
-    private final ConfigurationProperties properties = new ConfigurationProperties();
     private EyeContext configuration;
     private Recorder recorder;
 
@@ -27,10 +27,8 @@ public class EyeApplication extends PApplet {
                         .windowSize(712)
                         .frameRate(60)
                         .videoDuration(10)
-                        .eyeSize(FragilityMapper.getEyeSize(properties))
-                        .colorPalette(
-                                ColorPaletteFactory.createColorPalette(
-                                        FragilityMapper.getColor(properties)))
+                        .eyeSize(ConfigurationPropertyMapper.getFloatMappedValue(EyeContext.Fields.eyeSize))
+                        .colorPalette(ColorPaletteFactory.createColorPalette(ConfigurationPropertyMapper.getFloatMappedValue(EyeContext.Fields.colorIntensifier)))
                         .build();
 
         EyeContext.setInstance(configuration);
@@ -46,19 +44,18 @@ public class EyeApplication extends PApplet {
         sclera =
                 Sclera.builder()
                         .color(configuration.getColorPalette().getLightColor())
-                        .width(configuration.getEyeSize() * 1.99f)
-                        .height(configuration.getEyeSize() * 1.75f)
+                        .width(ConfigurationPropertyMapper.getFloatMappedValue(EyeContext.Fields.eyeSize) * 1.99f)
+                        .height(ConfigurationPropertyMapper.getFloatMappedValue(EyeContext.Fields.eyeSize) * 1.75f)
                         .build();
         iris =
                 IrisAnimated.builder()
                         .irisColor(configuration.getColorPalette().getFirstAccentColor())
-                        .irisSize(configuration.getEyeSize())
+                        .irisSize(ConfigurationPropertyMapper.getFloatMappedValue(EyeContext.Fields.eyeSize))
                         .pupilColor(configuration.getColorPalette().getDarkColor())
-                        .pupilSize(
-                                configuration.getEyeSize()
-                                        * FragilityMapper.getPupilSize(properties))
-                        .reflectionType(FragilityMapper.getReflectionType(properties))
-                        .reflectionSize(configuration.getEyeSize() * 0.025f)
+                        .pupilSize(ConfigurationPropertyMapper.getFloatMappedValue(EyeContext.Fields.eyeSize)
+                                * ConfigurationPropertyMapper.getFloatMappedValue(Iris.Fields.pupilSize))
+                        .reflectionType(50)
+                        .reflectionSize(ConfigurationPropertyMapper.getFloatMappedValue(EyeContext.Fields.eyeSize) * 0.025f)
                         .reflectionColor(Color.of(180, 0, 100))
                         // TODO: Configure
                         .gazeFrequency(125f) // [50-200] - [low-high]
@@ -72,10 +69,9 @@ public class EyeApplication extends PApplet {
         eyelid =
                 EyelidAnimated.builder()
                         .eyelashColor(configuration.getColorPalette().getSecondAccentColor())
-                        .eyelashQuantity(
-                                (int) (random(4) + FragilityMapper.getEyelashQuantity(properties)))
-                        .eyelashWeight(FragilityMapper.getEyelashWeight(properties))
-                        .eyelidHeight(FragilityMapper.getEyelidHeight(properties))
+                        .eyelashQuantity((int) (random(3) + ConfigurationPropertyMapper.getIntegerMappedValue(Eyelid.Fields.eyelashQuantity)))
+                        .eyelashWeight(ConfigurationPropertyMapper.getFloatMappedValue(Eyelid.Fields.eyelashWeight))
+                        .eyelidHeight(ConfigurationPropertyMapper.getFloatMappedValue(Eyelid.Fields.eyelidHeight))
                         .lowerEyelidColor(configuration.getColorPalette().getSecondAccentColor())
                         .upperEyelidColor(configuration.getColorPalette().getSecondAccentColor())
                         // TODO: Configure
@@ -83,7 +79,7 @@ public class EyeApplication extends PApplet {
                         .blinkingSpeed(0.08f) // [0.03-0,1] - [slow-fast]
                         .build();
 
-        // TODO: DEBUG, REMOVE
+        // TODO: Debug - uncomment
         //        recorder =
         //                new Recorder(
         //                        this,
@@ -108,7 +104,7 @@ public class EyeApplication extends PApplet {
         popMatrix();
 
         logFrameRate();
-        //        recorder.record(this); // TODO: DEBUG UNCOMMENT
+        //        recorder.record(this); // TODO: Debug - uncomment
     }
 
     private void logFrameRate() {
