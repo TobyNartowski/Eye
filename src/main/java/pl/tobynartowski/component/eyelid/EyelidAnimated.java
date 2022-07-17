@@ -3,6 +3,7 @@ package pl.tobynartowski.component.eyelid;
 import lombok.Builder;
 import lombok.experimental.FieldNameConstants;
 import pl.tobynartowski.mapper.Mappable;
+import pl.tobynartowski.mapper.MappedValue;
 import pl.tobynartowski.util.color.Color;
 import processing.core.PApplet;
 
@@ -14,11 +15,14 @@ import java.util.Random;
 public class EyelidAnimated extends Eyelid {
 
     // Rigged values
+    @MappedValue(min = 1f, max = 10f)
     private final int blinkingFrequency;
+
+    @MappedValue(min = 0.03f, max = 0.1f)
     private final float blinkingSpeed;
+    // Rigged values end
 
     private static final int BLINK_FREQUENCY_CONSTANT = 200;
-
     private final Random random = new Random();
     private final List<Integer> blinkMultipliers = List.of(2, 4, 6, 8);
 
@@ -26,7 +30,6 @@ public class EyelidAnimated extends Eyelid {
     private int nextBlink = 0;
     private float shift = 0;
     private int blinkMultiplier = 4;
-    // Rigged values end
 
     @Builder
     private EyelidAnimated(

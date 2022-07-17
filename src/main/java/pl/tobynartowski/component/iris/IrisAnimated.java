@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldNameConstants;
 import pl.tobynartowski.EyeContext;
 import pl.tobynartowski.mapper.Mappable;
+import pl.tobynartowski.mapper.MappedValue;
 import pl.tobynartowski.util.color.Color;
 import processing.core.PApplet;
 
@@ -15,12 +16,25 @@ import processing.core.PApplet;
 public class IrisAnimated extends Iris {
 
     // Rigged values
+    @MappedValue(min = 50f, max = 200f)
     private float gazeFrequency;
+
+    @MappedValue(min = 0f, max = 0.10f)
     private float gazeSmallMoveStrength;
+
+    @MappedValue(min = 1f, max = 6f)
     private int gazeSmallMoveFrequency;
+
+    @MappedValue(min = 0.08f, max = 0.25f)
     private float gazeSpeed;
+
+    @MappedValue(min = 1f, max = 6f)
     private int gazePrideFrequency;
+
+    @MappedValue
     private boolean gazePride;
+
+    @MappedValue(min = 2f, max = 4f)
     private float gazeNervousness;
     // Rigged values end
 

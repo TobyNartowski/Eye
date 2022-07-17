@@ -18,11 +18,16 @@ import java.util.stream.Stream;
 @UtilityClass
 public class ConfigurationPropertyMapper {
 
+    private static final float BOOLEAN_CLASSIFICATION_THRESHOLD = 50.0f;
     private static final Set<Class<?>> mappableClasses;
 
     static {
         Reflections reflections = new Reflections(EyeApplication.class.getPackage().getName());
         mappableClasses = reflections.getTypesAnnotatedWith(Mappable.class);
+    }
+
+    public static boolean getBooleanMappedValue(String field) {
+        return getFloatMappedValue(field) >= BOOLEAN_CLASSIFICATION_THRESHOLD;
     }
 
     public static int getIntegerMappedValue(String field) {

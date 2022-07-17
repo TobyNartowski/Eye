@@ -12,27 +12,37 @@ import processing.core.PApplet;
 @FieldNameConstants
 public class Eyelid implements Renderable {
 
-    protected final EyeContext configuration = EyeContext.getInstance();
-    private final float eyelidMaskOffset = 5;
-
     // Rigged values
-    @MappedValue(min = 15, max = 50)
+    @MappedValue(min = 15f, max = 50f)
     float eyelidHeight;
     Color eyelashColor;
 
-    @MappedValue(min = 8, max = 15)
+    @MappedValue(min = 8f, max = 15f)
     int eyelashQuantity;
 
     @MappedValue(min = 5.5f, max = 10.5f)
     float eyelashWeight;
 
+    @MappedValue(min = 0f, max = 40f)
+    float symmetryX = 40f;
+
+    @MappedValue(min = 0f, max = 40f)
+    float symmetryY = 40f;
+    // Rigged values end
+
+    protected final EyeContext configuration = EyeContext.getInstance();
+    private final float eyelidMaskOffset = 5;
+
     Color upperEyelidColor;
     Color lowerEyelidColor;
-    // Rigged values end
 
     float eyelashDeformation;
     float upperEyelidDeformation;
     float lowerEyelidDeformation;
+
+    // TODO: Symmetry
+    float symmetryDeformationX = (float) Math.random() % symmetryX;
+    float symmetryDeformationY = (float) Math.random() % symmetryY;
 
     private final Eyelash eyelash = new Eyelash();
     private final UpperEyelid upperEyelid = new UpperEyelid();

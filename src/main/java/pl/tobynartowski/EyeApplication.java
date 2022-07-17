@@ -57,14 +57,13 @@ public class EyeApplication extends PApplet {
                         .reflectionType(50)
                         .reflectionSize(ConfigurationPropertyMapper.getFloatMappedValue(EyeContext.Fields.eyeSize) * 0.025f)
                         .reflectionColor(Color.of(180, 0, 100))
-                        // TODO: Configure
-                        .gazeFrequency(125f) // [50-200] - [low-high]
-                        .gazeSmallMoveStrength(0.25f) // [0-0.5] - [none-big]
-                        .gazeSmallMoveFrequency(4) //[1-6] - [none-high]
-                        .gazeSpeed(0.17f) // [0.08-0.25] - [slow-fast]
-                        .gazePrideFrequency(2) // [1-6] - [none-high]
-                        .gazePride(true) // [false-true] - [depressed-proud]
-                        .gazeNervousness(3f) // [2-5] - [calm-nervous]
+                        .gazeFrequency(ConfigurationPropertyMapper.getFloatMappedValue(IrisAnimated.Fields.gazeFrequency))
+                        .gazeSmallMoveStrength(ConfigurationPropertyMapper.getFloatMappedValue(IrisAnimated.Fields.gazeSmallMoveStrength))
+                        .gazeSmallMoveFrequency(ConfigurationPropertyMapper.getIntegerMappedValue(IrisAnimated.Fields.gazeSmallMoveFrequency))
+                        .gazeSpeed(ConfigurationPropertyMapper.getFloatMappedValue(IrisAnimated.Fields.gazeSpeed))
+                        .gazePrideFrequency(ConfigurationPropertyMapper.getIntegerMappedValue(IrisAnimated.Fields.gazePrideFrequency))
+                        .gazePride(ConfigurationPropertyMapper.getBooleanMappedValue(IrisAnimated.Fields.gazePride))
+                        .gazeNervousness(ConfigurationPropertyMapper.getFloatMappedValue(IrisAnimated.Fields.gazeNervousness))
                         .build();
         eyelid =
                 EyelidAnimated.builder()
@@ -74,9 +73,8 @@ public class EyeApplication extends PApplet {
                         .eyelidHeight(ConfigurationPropertyMapper.getFloatMappedValue(Eyelid.Fields.eyelidHeight))
                         .lowerEyelidColor(configuration.getColorPalette().getSecondAccentColor())
                         .upperEyelidColor(configuration.getColorPalette().getSecondAccentColor())
-                        // TODO: Configure
-                        .blinkingFrequency(4) // [1-10] - [low-high]
-                        .blinkingSpeed(0.08f) // [0.03-0,1] - [slow-fast]
+                        .blinkingFrequency(ConfigurationPropertyMapper.getIntegerMappedValue(EyelidAnimated.Fields.blinkingFrequency))
+                        .blinkingSpeed(ConfigurationPropertyMapper.getFloatMappedValue(EyelidAnimated.Fields.blinkingSpeed))
                         .build();
 
         // TODO: Debug - uncomment
