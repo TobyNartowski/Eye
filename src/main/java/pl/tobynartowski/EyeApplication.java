@@ -8,13 +8,11 @@ import pl.tobynartowski.component.sclera.Sclera;
 import pl.tobynartowski.configuration.property.ConfigurationPropertyMapper;
 import pl.tobynartowski.util.color.Color;
 import pl.tobynartowski.util.color.ColorPaletteFactory;
-import pl.tobynartowski.util.recorder.Recorder;
 import processing.core.PApplet;
 
 public class EyeApplication extends PApplet {
 
     private EyeContext configuration;
-    private Recorder recorder;
 
     private Sclera sclera;
     private IrisAnimated iris;
@@ -76,13 +74,6 @@ public class EyeApplication extends PApplet {
                         .blinkingFrequency(ConfigurationPropertyMapper.getIntegerMappedValue(EyelidAnimated.Fields.blinkingFrequency))
                         .blinkingSpeed(ConfigurationPropertyMapper.getFloatMappedValue(EyelidAnimated.Fields.blinkingSpeed))
                         .build();
-
-        // TODO: Debug - uncomment
-        //        recorder =
-        //                new Recorder(
-        //                        this,
-        //                        (int) configuration.getVideoDuration(),
-        //                        (int) configuration.getFrameRate());
     }
 
     @Override
@@ -102,7 +93,6 @@ public class EyeApplication extends PApplet {
         popMatrix();
 
         logFrameRate();
-        //        recorder.record(this); // TODO: Debug - uncomment
     }
 
     private void logFrameRate() {
